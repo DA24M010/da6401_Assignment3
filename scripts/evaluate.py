@@ -1,7 +1,7 @@
 import argparse
 import yaml
 from evaluate_and_log import evaluate_and_log
-
+from generate_heatmaps import evaluate_and_log_with_attention
 def load_config_from_yaml(path):
     with open(path, 'r') as f:
         config = yaml.safe_load(f)
@@ -32,7 +32,7 @@ def main():
     config["wandb_entity"] = args.entity
 
     # Run full evaluation pipeline
-    evaluate_and_log(config)
+    evaluate_and_log_with_attention(config)
 
 if __name__ == "__main__":
     main()

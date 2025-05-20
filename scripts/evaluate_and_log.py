@@ -58,7 +58,7 @@ def evaluate_and_log(config: dict):
 
     # Train model
     model = train_model(model, train_loader, val_loader, lr = config["lr"], 
-                        device= device, wandb_logging= True, teacher_forcing_ratio= config["teacher_forcing_ratio"], epochs= 2)
+                        device= device, wandb_logging= True, teacher_forcing_ratio= config["teacher_forcing_ratio"], epochs= 15)
 
     # Evaluate on test set
     predictions, word_acc, char_acc = evaluate_model(

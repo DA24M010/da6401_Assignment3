@@ -33,21 +33,22 @@ The goal of this assignment is fourfold:
 │   ├── run_att_sweeps.py
 │   └── run_sweeps.py
 ├── .gitignore
-├── train.csv
-├── val.csv
 ├── readme.md
 ├── best_att_config.yaml
 └── best_config.yaml
 
 ```
 
-### Part A
-- **`extract_data.py`**: Generates CSV files for train and validation splits from the raw dataset, used for loading data via custom dataloader.
-- **`data.py`**: Defines the N12KDATA dataset class and a utility function to return data loaders for train, validation, and test sets.
-- **`model.py`**: Implements the CNN architecture used for training on the iNaturalist 12K dataset.
-- **`train.py`**: Contains the training loop logic for the CNN model, using specified hyperparameters.
-- **`train_sweeps.py`**: Executes WandB hyperparameter sweeps to tune the CNN model and logs metrics.
-- **`train_best_model.py`**: Trains the CNN using the best hyperparameters from WandB sweeps, evaluates on the test set, and logs final test accuracy and predictions.
+# Script files
+- **`extract_data.py`**: Download the Dakshina Dataset.
+- **`data.py`**: Defines the Dakshina dataset class and a utility function to return data loaders for train, validation, and test sets.
+- **`model.py`**: Implements the vanilla RNN architecture.
+- **`model_w_attention.py`**: Implements the vanilla RNN architecture.
+- **`train.py`**: Contains the training loop logic for the RNN model, using specified hyperparameters.
+- **`run_sweeps.py`**: Executes WandB hyperparameter sweeps to tune the RNN model and logs metrics.
+- **`run_att_sweeps.py`**: Executes WandB hyperparameter sweeps to tune the RNN model with attention and logs metrics.
+- **`train_best_model.py`**: Trains the RNN models using the best hyperparameters from WandB sweeps, evaluates on the test set, and logs final test accuracy and predictions.
+- **`evaluate.py`**: Test the RNN models on the hyperparameter specified in config files. 
 
 # Installation and Setup
 ### 1. Clone the repository:

@@ -13,16 +13,16 @@ sweep_config = {
         "goal": "maximize"
     },
     "parameters": {
-        "embedding_dim": {"values": [32, 64, 128, 256]},
+        "embedding_dim": {"values": [32, 64, 128]},
         "hidden_size": {"values": [64, 128, 256]},
         "encoder_layers": {"values": [1, 2, 3]},
         "decoder_layers": {"values": [1, 2, 3]},
         "cell_type": {"values": ["rnn", "gru", "lstm"]},
         "dropout": {"values": [0.2, 0.3, 0.5]},
         "beam_size": {"values": [1, 3, 5]},
-        "lr": {"values": [0.1, 0.01, 0.001, 0.0001]},
+        "lr": {"values": [0.01, 0.001, 0.0001]},
         "teacher_forcing_ratio": {"values": [0.5, 0.7, 0.9]},
-        "batch_size": {"values": [16, 32, 64, 128]},
+        "batch_size": {"values": [16, 32, 64]},
     }
 }
 

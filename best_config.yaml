@@ -1,0 +1,10 @@
+embedding_dim: 64
+hidden_size: 128
+encoder_layers: 1
+decoder_layers: 1
+cell_type: "lstm"
+dropout: 0.3
+beam_size: 3
+lr: 0.001
+teacher_forcing_ratio: 0.7
+batch_size: 32

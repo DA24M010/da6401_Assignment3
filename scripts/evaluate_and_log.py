@@ -14,21 +14,47 @@ def evaluate_and_log(config: dict):
     # Load data
     train_loader, val_loader, test_loader, input_vocab, target_vocab = get_data_loaders("./data/dakshina_dataset_v1.0/hi/lexicons/", batch_size = config["batch_size"])
                                                                                            
+    if "use_attention" in config:
+        from model_w_attention import build_model
+        
+        # Build model with attention
+        model = build_model(
+            input_dim=len(input_vocab),
+            output_dim=len(target_vocab),
+            embedding_dim=config["embedding_dim"],
+            hidden_size=config["hidden_size"],
+            encoder_layers=config["encoder_layers"],
+            decoder_layers=config["decoder_layers"],
+            cell_type=config["cell_type"],
+            dropout=config["dropout"],
+            beam_size=config["beam_size"],
+            teacher_forcing_ratio=config["teacher_forcing_ratio"],
+            use_attention=config["use_attention"],
+            device=device
+        )
+        os.makedirs("predictions_attention", exist_ok=True)
+        save_path = "predictions_attention/predictions.csv"
 
-    # Build model
-    model = build_model(
-        input_dim=len(input_vocab),
-        output_dim=len(target_vocab),
-        embedding_dim=config["embedding_dim"],
-        hidden_size=config["hidden_size"],
-        encoder_layers=config["encoder_layers"],
-        decoder_layers=config["decoder_layers"],
-        cell_type=config["cell_type"],
-        dropout=config["dropout"],
-        beam_size=config["beam_size"],
-        teacher_forcing_ratio=config["teacher_forcing_ratio"],
-        device=device
-    )
+    else:
+        from model import build_model
+        
+        # Build model without attention
+        model = build_model(
+            input_dim=len(input_vocab),
+            output_dim=len(target_vocab),
+            embedding_dim=config["embedding_dim"],
+            hidden_size=config["hidden_size"],
+            encoder_layers=config["encoder_layers"],
+            decoder_layers=config["decoder_layers"],
+            cell_type=config["cell_type"],
+            dropout=config["dropout"],
+            beam_size=config["beam_size"],
+            teacher_forcing_ratio=config["teacher_forcing_ratio"],
+            device=device
+        )
+        os.makedirs("predictions_attention", exist_ok=True)
+        save_path = "predictions_attention/predictions.csv"
+
 
     # Train model
     model = train_model(model, train_loader, val_loader, lr = config["lr"], 
@@ -41,8 +67,6 @@ def evaluate_and_log(config: dict):
     )
 
     # Save predictions
-    os.makedirs("predictions_vanilla", exist_ok=True)
-    save_path = "predictions_vanilla/predictions.csv"
     df = pd.DataFrame(predictions, columns=["Input", "Target", "Prediction"])
     df.to_csv(save_path, index=False)
 
